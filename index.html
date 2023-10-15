@@ -73,79 +73,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-用hexo + github 搭建个人博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-title-name" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/10/14/%E7%94%A8hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
-  <time class="dt-published" datetime="2023-10-14T09:09:19.274Z" itemprop="datePublished">2023-10-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <pre><code>前言：平时个人时不时会学一些东西，每次总是把学到的东西随便写在某个地方，导致下一次遇到同样的问题的时候又要去引擎上重新搜索一遍才能解决问题。
-写博客这个想法很久就有了，只是自己懒得付出行动。写博客可以在很多平台上写，例如知乎，CSDN，简书，但是由于CSDN等软件过于流氓就不想在上面放自己的数据，所以有了自建博客的想法。
-</code></pre>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://pdpeng.github.io/2022/01/19/setup-personal-blog/"># 快速搭建个人博客 —— 保姆级教程</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35668237"># 超详细Hexo+Github博客搭建小白教程</a></p>
-<h1 id="个人搭建博客的选择"><a href="#个人搭建博客的选择" class="headerlink" title="个人搭建博客的选择"></a>个人搭建博客的选择</h1><p>上网搜到搭建个人博客有其中两种选择：</p>
-<ul>
-<li>hexo + github</li>
-<li>wordpress</li>
-</ul>
-<p>wordpress可以安装很多插件，功能比较齐全。支持在线编辑发布。hexo比较简单，实现方法是在本地写好markdown文档然后在本地生成html再上传到github上面。</p>
-<p>我搭建个人博客的目的只是为了记录自己学习的过程，不需要很多的功能，而且我现在用着自己的笔记软件obsidian，这个软件也是直接用md来记录，我可以先obsidian写好markdown然后再copy到hexo上也不费工夫，所以wordpress的在线编辑功能对我来说不是刚需，因此hexo看起来是比较合适的选择。</p>
-<h1 id="1-github篇"><a href="#1-github篇" class="headerlink" title="1.github篇"></a>1.github篇</h1><p>在github新建一个repository用于存放我们的网站，repository要做到下面这三点：</p>
-<ul>
-<li>repository的名称要符合语法<code>用户名.github.io</code>，</li>
-<li>隐私勾选为<code>Public</code>，这样别人才可以看到你的博客</li>
-<li>勾选上<code>Add a README file</code>（看教程是这样做的，不知道为什么）<br>![[Pasted image 20231012205705.png]]</li>
-</ul>
-<h1 id="2-git和node-js篇"><a href="#2-git和node-js篇" class="headerlink" title="2. git和node.js篇"></a>2. git和node.js篇</h1><h2 id="2-1-安装太简单就不在这里记录了"><a href="#2-1-安装太简单就不在这里记录了" class="headerlink" title="2.1 安装太简单就不在这里记录了"></a>2.1 安装太简单就不在这里记录了</h2><p>安装过程太简单就不在这里记录了</p>
-<h2 id="2-2-配置git"><a href="#2-2-配置git" class="headerlink" title="2.2 配置git"></a>2.2 配置git</h2><h1 id="3-Hexo篇"><a href="#3-Hexo篇" class="headerlink" title="3. Hexo篇"></a>3. Hexo篇</h1><p>请先安装git和node.js在安装hexo</p>
-<h2 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h2><p>在电脑上找个合适的目录存放博客文件，这里我选择<code>D:\blog</code></p>
-<p>在该目录下右键点击<code>Git Bash Here</code>，打开git的控制台窗口<br>![[Pasted image 20231012210941.png]]</p>
-<p>输入<code>npm i hexo-cli -g</code>安装Hexo。一开始会有点久，等一下就好了</p>
-<ul>
-<li>npm stands for node package management<br>![[Pasted image 20231012211255.png]]</li>
-</ul>
-<p>输入<code>hexo -v</code>验证是否安装成功<br>![[Pasted image 20231012211355.png]]</p>
-<p>在放博客的根目录下右键打开git bash，然后运行下面命令安装一个扩展：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
-<p>![[Pasted image 20231012230543.png]]</p>
-<h2 id="3-2-初始化hexo本地服务和测试"><a href="#3-2-初始化hexo本地服务和测试" class="headerlink" title="3.2 初始化hexo本地服务和测试"></a>3.2 初始化hexo本地服务和测试</h2><p>然后就要初始化我们的网站，输入<code>hexo init &lt;yourProjectName&gt;</code>初始化文件夹，接着输入<code>npm install</code>安装必备的组件。<br>![[Pasted image 20231012212403.png]]</p>
-<p>输入<code>hexo g</code>生成静态网页，然后输入<code>hexo s</code>启动本地服务器<br>![[Pasted image 20231012212636.png]]</p>
-<p>在浏览器输入<code>http://localhost:4000/</code>就可以访问本地的博客界面了<br>![[Pasted image 20231012212702.png]]</p>
-<p>按<code>ctrl + c</code>可以停止服务器</p>
-<h2 id="3-3-配置hexo"><a href="#3-3-配置hexo" class="headerlink" title="3.3 配置hexo"></a>3.3 配置hexo</h2><p>打开之前设置存放博客的目录下的<code>_config.yml</code>文件，这是博客的配置文件，在这里你可以修改与博客相关的各种信息。<br>![[Pasted image 20231012230054.png]]</p>
-<p>修改最后一行的配置，其中repository是刚刚在github创建的那个repository链接，可以在repository里的Code-&gt;HTTPS进行复制。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: https://github.com/dgmyq/dgmyq.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
-<p>![[Pasted image 20231012225846.png]]</p>
-<h1 id="4-写文章"><a href="#4-写文章" class="headerlink" title="4. 写文章"></a>4. 写文章</h1><p>首先在博客根目录下右键打开git bash，输入下面命令之后在<code>some_path...\blog\source\_posts</code>会多一个文件夹，这个文件夹就是用来存放数据的地方，那些md文件就是你的blog</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &quot;article title&quot;</span><br></pre></td></tr></table></figure>
-<p>![[Pasted image 20231013004016.png]]</p>
-<p>编写完markdown文件后，根目录下输入<code>hexo g</code>生成静态网页，然后输入<code>hexo s</code>可以本地预览效果，最后输入<code>hexo d</code>上传到github上。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/14/%E7%94%A8hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-id="clnptim8w00001sgb896jbfwm" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/10/13/test/" class="article-date">
-  <time class="dt-published" datetime="2023-10-13T07:55:08.000Z" itemprop="datePublished">2023-10-13</time>
+    <a href="/2023/10/15/title-name/" class="article-date">
+  <time class="dt-published" datetime="2023-10-15T15:13:17.000Z" itemprop="datePublished">2023-10-15</time>
 </a>
     
   </div>
@@ -156,7 +87,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/10/13/test/">test</a>
+      <a class="p-name article-title" href="/2023/10/15/title-name/">title name</a>
     </h1>
   
 
@@ -164,11 +95,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p>I am writing some to test my blog post.</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/test/" data-id="clnobcylm0000dggbgcbl4ovx" data-title="test" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/15/title-name/" data-id="clnrmg6rt0000kwgb6uov4rka" data-title="title name" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -262,11 +194,7 @@
       <ul>
         
           <li>
-            <a href="/2023/10/14/%E7%94%A8hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/13/test/">test</a>
+            <a href="/2023/10/15/title-name/">title name</a>
           </li>
         
           <li>
