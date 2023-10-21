@@ -73,6 +73,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Order of Evaluation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/21/Order%20of%20Evaluation/" class="article-date">
+  <time class="dt-published" datetime="2023-10-20T16:00:00.000Z" itemprop="datePublished">2023-10-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/21/Order%20of%20Evaluation/">Order of Evaluation</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在C++中，evaluation顺序是一个需要注意的地方</p>
+<p><strong>一、在运算符中</strong></p>
+<p>在运算符中有一些运算符的evaluation顺序是确定的，有一些是不确定的：</p>
+<ol>
+<li>例如在下面的例子中的 <em>&lt;&lt;</em> 的evaluation顺序就是不确定的，导致在有一些机器上会显示<em>1 1</em>，有一些机器会显示<em>0 1</em>。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i = 0;</span><br><span class="line">cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; ++i &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>有四个operator的evaluation顺序是确定的，他们是<code>AND(&amp;&amp;)</code>，<code>OR(||)</code>，<code>conditional(? :)</code>，<code>comma(,)</code>。例如<code>AND(&amp;&amp;)</code>总是保证先去evaluate左值再evaluate右值。</li>
+</ol>
+<p>注意不要把evaluation，precedence还有associativity给混乱了。</p>
+<p>例如下面的代码中<code>*</code>的优先级是比<code>+</code>的优先级高的，所以结果肯定是会先执行<code>g() + h()</code>，再按从左到右执行加法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f() + g() * h() + j()</span><br></pre></td></tr></table></figure>
+<p>但是这里确没法确定<code>f() g() h() j()</code>他们之间evaluation的顺序。这就导致了如果<code>f() g() h() j()</code>之间有相关的变量，不同的evaluation顺序会导致不同的结果。</p>
+<p><strong>二、在函数参数中</strong></p>
+<p>同样，在函数参数中也没法确定evaluation的顺序。例如下面调用func函数的例子，有可能是用*(2, 1)<em>去初始化func的形参，也有可能是用</em>(1, 0)*去初始化func的形参。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i = 1;</span><br><span class="line">func(++i, --i)</span><br></pre></td></tr></table></figure>
+<p><strong>三、解决办法</strong></p>
+<p>C++ primer中提供了一个规则可以很好解决这个问题：</p>
+<blockquote>
+<p>If you change the value of an operand, don’t use that operand elsewhere <em><strong>in the same expresion</strong></em>.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/21/Order%20of%20Evaluation/" data-id="clnzih0af00009ogb04zd1yja" data-title="Order of Evaluation" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-hexo后续——一个图片问题的解决方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/10/19/hexo%E5%90%8E%E7%BB%AD%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-date">
@@ -338,7 +402,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%98%E8%85%BE/">折腾</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%98%E8%85%BE/">折腾</a></li></ul>
     </div>
   </div>
 
@@ -364,6 +428,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/10/21/Order%20of%20Evaluation/">Order of Evaluation</a>
+          </li>
         
           <li>
             <a href="/2023/10/19/hexo%E5%90%8E%E7%BB%AD%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">hexo后续——一个图片问题的解决方案</a>
